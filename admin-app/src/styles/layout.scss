@@ -1,0 +1,27 @@
+.main-layout {
+    .sider {
+        overflow: 'auto';
+        height: '100vh';
+        position: 'fixed';
+        left: 0;
+        top: 0;
+        bottom: 0;
+
+        .logo {
+            height: 32px;
+            margin: 16px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+    }
+
+    .site-layout {
+        margin-left: 200;
+
+        .site-layout-background {
+            margin: 24px 16px;
+            padding: 24;
+            height: 100%;
+            min-height: calc(100vh - 56px);
+        }
+    }
+}
