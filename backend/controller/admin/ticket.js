@@ -41,8 +41,8 @@ class TicketController {
       const ticketId = Number(req.params.id);
       const assignTo = decoded.id;
       const getTicketInfo = await ticketService.getByTicketId(ticketId);
-      if(!getTicketInfo.updatedAt && getTicketInfo.status == "In Progress"){
-        return res.json({"message":"Invalid Ticket Id!"})
+      if(!getTicketInfo){
+        return res.json({"message":"Invalid Ticket!"})
       }
       const date1 = new Date(getTicketInfo.updatedAt);
       const date2 = new Date();

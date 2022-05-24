@@ -50,7 +50,7 @@ class TicketService {
   }
 
   getByTicketId(ticketId) {
-    return Ticket.query().findById(ticketId).select('id','title','description','status','updatedAt')
+    return Ticket.query().findById(ticketId).where("status","In Progress").select('id','title','description','status','updatedAt')
   }
 
   getListAssignTickets(assignTo) {
