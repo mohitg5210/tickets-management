@@ -24,6 +24,14 @@ class User extends Model {
           from: 'user.id',
           to: 'ticket.assignTo',
         },
+      },      
+      clients: {
+        relation: Model.HasManyRelation,
+        modelClass: Ticket,
+        join: {
+          from: 'user.id',
+          to: 'ticket.userId',
+        },
       },
     };
   }

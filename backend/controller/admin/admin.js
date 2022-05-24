@@ -60,7 +60,23 @@ class adminController {
     }
   }
 
-  
+  async progressTicketsChart(req, res, next) {
+    try {
+      const token = req.header("accessToken");
+      const decoded = jwt.verify(token, config.secret) 
+      if(decoded.userType != 'Admin'){
+        return res.status(403).json({"message":"Permission denied!"})
+      }else{
+        const user = await userService.getprogressTicketsChart();
+        res.json(user);
+      }
+      
+    } catch (err) {
+      console.error(err);
+      res.status(500).json(err);
+    }
+  }
+
 }
 
 module.exports = new adminController();

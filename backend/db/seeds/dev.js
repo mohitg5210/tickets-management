@@ -75,6 +75,8 @@ exports.seed = async function (knex) {
     {
       title: 'Product Broken',
       description: 'Test Tickets',
+      status: 'In Progress',
+      assignTo: 2,
       userId: 4,
     },
     {
@@ -85,12 +87,15 @@ exports.seed = async function (knex) {
     {
       title: 'Item issue',
       description: 'Test Tickets',
+      status: 'In Progress',
+      assignTo: 3,
       userId: 5,
     },
     {
       title: 'product issue',
       description: 'Test Tickets',
-      status: 'Closed',
+      status: 'In Progress',
+      assignTo: 3,
       userId: 5,
     },
   ]);

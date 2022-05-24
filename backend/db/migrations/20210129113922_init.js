@@ -18,8 +18,9 @@ exports.up = function (knex) {
       table.string('title').notNullable(),
       table.string('description').nullable(),
       table.enu('status',['Open','In Progress', 'Closed']).defaultTo('Open'),
-      table.integer('assignTo').nullable().references('id').inTable('user');
-      table.integer('userId').notNullable().references('id').inTable('user');
+      table.integer('assignTo').nullable().references('id').inTable('user'),
+      table.integer('userId').notNullable().references('id').inTable('user'),
+      table.float('TimeTaken').nullable(),
       table.timestamps(true, true);
     });
 };

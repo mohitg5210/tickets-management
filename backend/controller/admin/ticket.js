@@ -21,7 +21,7 @@ class TicketController {
       if(user == 1){
         return res.json({"message":"Updated successfully!"})
       }else{
-        return res.json({"message":"Something want wrong!"});
+        return res.json({"message":"Something went wrong!"});
       }
       
     } catch (err) {
@@ -40,11 +40,21 @@ class TicketController {
       
       const ticketId = Number(req.params.id);
       const assignTo = decoded.id;
-      const user = await ticketService.completeTicket(ticketId,assignTo);
+      const getTicketInfo = await ticketService.getByTicketId(ticketId);
+      if(!getTicketInfo.updatedAt && getTicketInfo.status == "In Progress"){
+        return res.json({"message":"Invalid Ticket Id!"})
+      }
+      const date1 = new Date(getTicketInfo.updatedAt);
+      const date2 = new Date();
+      const TimeTaken = ticketService.getDifferenceInHours(date1,date2);
+      
+      const user = await ticketService.completeTicket(ticketId,assignTo,TimeTaken);
       if(user == 1){
         return res.json({"message":"Updated successfully!"})
+      }else if(user == 0){
+        return res.json({"message":"Invalid Ticket!"})
       }else{
-        return res.json({"message":"Something want wrong!"});
+        return res.json(user);
       }
       
     } catch (err) {

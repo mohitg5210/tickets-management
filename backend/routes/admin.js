@@ -15,9 +15,10 @@ router.get('/operation-managers', adminController.getOperationManagers);
 
 router.get('/list-ticket', ticketController.listAllTicket);
 
-
-
 router.post('/assign-ticket', [body('assignTo').notEmpty(), body('ticketId').notEmpty()],   ticketController.assignTicket);
 
 router.get('/complete-ticket/:id',   ticketController.completeTicket);
+
+router.get('/dashboard-charts', adminController.progressTicketsChart);
+
 module.exports = router;
