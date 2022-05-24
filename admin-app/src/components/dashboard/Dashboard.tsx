@@ -89,7 +89,7 @@ const Dashboard = () => {
                     else setTicketsStatusData(null)
 
                     if (res.data.assignedTickets.length)
-                        setAverageTimeTakenData({
+                        setAssignedTicketsData({
                             labels: res.data.assignedTickets.map((ele: ASSIGNED_TICKETS) => ele.name),
                             datasets: [
                                 {
@@ -104,7 +104,7 @@ const Dashboard = () => {
                                 }
                             ]
                         })
-                    else setAverageTimeTakenData(null)
+                    else setAssignedTicketsData(null)
 
                     if (res.data.TicketsTakenTime.length) {
                         const filteredData: ARRAY_DATA[] = []
@@ -112,10 +112,10 @@ const Dashboard = () => {
                             ele.assignedTickets.length &&
                                 filteredData.push({
                                     name: ele.name,
-                                    value: ele?.assignedTickets?.reduce((total: number, next: any) => total + next.timeTaken, 0) / ele?.assignedTickets.length
+                                    value: Number((ele?.assignedTickets?.reduce((total: number, next: any) => total + next.timeTaken, 0) / ele?.assignedTickets.length).toFixed(1))
                                 })
                         })
-                        setAssignedTicketsData({
+                        setAverageTimeTakenData({
                             labels: filteredData.map((ele: ARRAY_DATA) => ele.name),
                             datasets: [
                                 {
@@ -125,9 +125,11 @@ const Dashboard = () => {
                                 }
                             ],
                         })
-                    } else setAssignedTicketsData(null)
+                    } else setAverageTimeTakenData(null)
                 } else {
                     setTicketsStatusData(null)
+                    setAssignedTicketsData(null)
+                    setAverageTimeTakenData(null)
                 }
             })
             .catch(async (err) => {
@@ -143,7 +145,7 @@ const Dashboard = () => {
         <h1>Dashboard</h1>
         <Row gutter={[16, 16]} className="charts">
             <Col span={8}>
-                <h1 style={{ textAlign: 'center' }}>Tickets Status</h1>
+                <h1>Tickets Status</h1>
                 {
                     ticketsStatusData
                         ? <Pie data={ticketsStatusData} />
@@ -153,10 +155,10 @@ const Dashboard = () => {
                 }
             </Col>
             <Col span={16}>
-                <h1 style={{ textAlign: 'center' }}>Average Time Taken by Operation Manager To Complete Tickets</h1>
+                <h1>Average Time Taken by Operation Manager To Complete Tickets</h1>
                 {
-                    assignedTicketsData
-                        ? <Bar options={options} data={assignedTicketsData} />
+                    averageTimeTakenData
+                        ? <Bar options={options} data={averageTimeTakenData} />
                         : <div className="center-no-data">
                             <h4>No Data</h4>
                         </div>
@@ -165,10 +167,10 @@ const Dashboard = () => {
         </Row>
         <Row gutter={[32, 32]} className="charts">
             <Col span={24}>
-                <h1 style={{ textAlign: 'center' }}>Assigned Tickets Count</h1>
+                <h1>Assigned Tickets Count</h1>
                 {
-                    averageTimeTakenData
-                        ? <Bar height={'100px'} options={options} data={averageTimeTakenData} />
+                    assignedTicketsData
+                        ? <Bar height={'100px'} options={options} data={assignedTicketsData} />
                         : <div className="center-no-data">
                             <h4>No Data</h4>
                         </div>

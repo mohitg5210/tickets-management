@@ -16,6 +16,6 @@ export interface TICKETS_LIST {
 }
 
 export const TOASTER_MESSAGES = {
-    SUCCESS_ASSIGNED: 'Ticket created successfully!!',
+    SUCCESS_ASSIGNED: 'Ticket assigned to manager successfully!!',
     SUCCESS_CLOSED: 'Ticket closed successfully!!'
 }

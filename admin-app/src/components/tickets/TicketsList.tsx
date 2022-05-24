@@ -28,7 +28,7 @@ const TicketsList = () => {
     })
     const [tickets, setTickets] = useState<TICKETS_LIST[]>([])
 
-    const handleAssignToManager = async (id: number, title: string, managerId: number, loggeduserType: UserTypes) => {
+    const handleMenuItemClick = async (id: number, title: string, managerId: number, loggeduserType: UserTypes) => {
         if (loggeduserType === UserTypes.Admin) {
             const token: any = await getAccessToken()
             axios.get(`${process.env.REACT_APP_API_BASE_URL}operation-managers`, {
@@ -45,7 +45,7 @@ const TicketsList = () => {
                                 ...prevData,
                                 {
                                     id: ele.id,
-                                    name: ele.name + ` (${ele.assignedTickets.length > 0 ? ele.assignedTickets.length + 'tickets are already in progress' : 'No ticket is in progress'})`
+                                    name: ele.name + ` (${ele.assignedTickets.length > 0 ? ele.assignedTickets.length + ' tickets are already in progress' : 'No ticket is in progress'})`
                                 }
                             ])
                         })
@@ -74,8 +74,8 @@ const TicketsList = () => {
 
     const menu = (id: number, title: string, managerId: number, loggeduserType: UserTypes) => (
         <Menu className="user-menu-list">
-            {loggeduserType === UserTypes.Admin && <MenuItem key={0} onClick={() => handleAssignToManager(id, title, managerId, loggeduserType)}>Assign to Operation Manager</MenuItem>}
-            {loggeduserType === UserTypes.Operation_Manager && <MenuItem key={1} onClick={() => handleAssignToManager(id, title, managerId, loggeduserType)}>Close this ticket?</MenuItem>}
+            {loggeduserType === UserTypes.Admin && <MenuItem key={0} onClick={() => handleMenuItemClick(id, title, managerId, loggeduserType)}>Assign to Operation Manager</MenuItem>}
+            {loggeduserType === UserTypes.Operation_Manager && <MenuItem key={1} onClick={() => handleMenuItemClick(id, title, managerId, loggeduserType)}>Close this ticket?</MenuItem>}
         </Menu>
     )
 
@@ -227,14 +227,14 @@ const TicketsList = () => {
             .then(async (res) => {
                 if (res?.data) {
                     showNotificationMessage(NOTIFICATION_TYPES.SUCCESS, TOASTER_MESSAGES.SUCCESS_CLOSED)
-                        await form.resetFields()
-                        setIsModalOpen({
-                            isOpen: false,
-                            ticketId: 0,
-                            ticketTitle: '',
-                            managerId: 0
-                        })
-                        await getTicketsData()
+                    await form.resetFields()
+                    setIsModalOpen({
+                        isOpen: false,
+                        ticketId: 0,
+                        ticketTitle: '',
+                        managerId: 0
+                    })
+                    await getTicketsData()
                 }
             })
             .catch(async (err) => {
