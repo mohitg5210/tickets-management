@@ -1,0 +1,12 @@
+.dashboard {
+    .charts {
+        padding: 50px 20px;
+
+        .center-no-data {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+}
