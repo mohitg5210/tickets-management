@@ -25,3 +25,8 @@ export enum UserTypes {
     Admin = "Admin",
     Operation_Manager = "Operation Manager"
 }
+
+export interface ARRAY_DATA {
+    name: string
+    value: number
+}
